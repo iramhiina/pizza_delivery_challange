@@ -1,0 +1,37 @@
+<h1>Orders</h1>
+<% @orders.each do |order| %>
+<%= form_for :order, url: order_path(order), method: :patch do |f| %>
+
+id: <%= order.id %>
+<br>
+created: <%= order.created_at %>
+<br>
+
+<br>
+
+Promotion_codes: <% order.promotions.each do |p| %>
+<%=  p.promotion_code %>
+<%end%>
+<br>
+
+Discount_codes: <% order.discounts.each do |d| %>
+<%= d.discount_code %>
+<br>
+<%end%>
+
+
+<h3>Items</h5>
+<%order.pizzas.each do |pizza| %><br>
+<%=  pizza.name %>(<%= pizza.size %>)
+<%pizza.ingredients.each do |ing| %><br>
+<%= ing.name%>
+<%end%>
+<%end%>
+<br>
+Total Price: <%= order.price%> 
+<%= f.submit  "Complete" %>
+<%end%>
+
+<% end %>
+
+
